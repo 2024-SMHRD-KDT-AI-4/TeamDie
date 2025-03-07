@@ -1,38 +1,86 @@
-.App {
-  text-align: center;
+/* S-CoreDream-3Light 글꼴 정의 */
+@font-face {
+  font-family: "S-CoreDream-3Light";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* 전체 배경 및 글꼴 설정 */
+html, body {
+  background-color: #f5f5f5; /* Smokewhite 배경 */
   min-height: 100vh;
+  margin: 0; /* 여백 제거 */
+  font-family: "S-CoreDream-3Light", sans-serif; /* 기본 글꼴 */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;  /* 가로 스크롤 방지 */
+  overflow-y: auto; /* 세로 스크롤 유지 */
+  width: 100%;
+}
+
+/* 전체 앱 컨테이너 (화면 높이 꽉 채우기, 세로 중앙 정렬) */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 화면 높이에 맞춤 */
+  width: 100%;
+  max-width: 480px; /* content-wrapper와 동일한 크기 설정 */
+  justify-content: flex-start; /* 위쪽 정렬 */
+  align-items: center; /* 중앙 정렬 */
+}
+
+/* 콘텐츠 영역 래퍼 (가로폭 480px 고정, 중앙 정렬) */
+.content-wrapper {
+  max-width: 480px;  /* 모든 페이지 동일한 폭 */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff;
+  padding: 20px;
+  flex: 1;
+  overflow: hidden;  /* 내부 스크롤 제거 */
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 및 푸터 스타일 조정 */
+.header, .footer {
+  width: 100%;
+  max-width: 480px; /* content-wrapper와 동일한 크기로 설정 */
+  background-color: #282c34; /* Bootstrap의 bg-dark와 비슷한 색상 */
   color: white;
+  text-align: center;
+  padding: 15px 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.App-link {
-  color: #61dafb;
+/* 네비게이션 바 내부 요소 스타일 */
+.navbar-brand, .nav-link {
+  color: #ffffff !important; /* 텍스트 색상 흰색으로 고정 */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-toggler {
+  border-color: #ffffff; /* 테두리 색상 흰색으로 */
+}
+
+/* Bootstrap 아이콘 설정 */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css");
+
+/* 홈 컨텐츠 중앙 정렬 */
+.home-content {
+  text-align: center; /* 가로 중앙 정렬 */
+}
+
+/* 네비게이션 바, 푸터, 버튼에 글꼴 적용 */
+.navbar, .footer, button {
+  font-family: "S-CoreDream-3Light", sans-serif !important;
 }

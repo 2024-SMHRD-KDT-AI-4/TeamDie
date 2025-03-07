@@ -1,0 +1,11 @@
+/* src/components/Footer.css */
+
+.footer {
+  background-color: #282c34; /* Bootstrap의 bg-dark와 비슷한 색상 */
+  color: #ffffff; /* 텍스트 색상 흰색으로 */
+  text-align: center;
+  padding: 10px 20px; /* 내부 여백 */
+  max-width: 400px; /* 폭 400px로 고정 */
+  margin-left: auto; /* 중앙 정렬 */
+  margin-right: auto; /* 중앙 정렬 */
+}
