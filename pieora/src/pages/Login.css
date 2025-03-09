@@ -1,0 +1,82 @@
+@font-face {
+    font-family: "S-CoreDream-3Light";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.login-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-container h2 {
+    color: black;
+    font-size: 50px;
+    margin-bottom: 60px;
+    font-family: "S-CoreDream-3Light";
+}
+
+.google-button,
+.kakao-button {
+    max-width: 400px;
+    width: 350px !important;
+    padding: 10px 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    margin: 0 auto 10px auto;
+    font-family: "S-CoreDream-3Light";
+}
+
+.kakao-button {
+    background-color: #ffeb3b;
+    color: #333;
+}
+
+.google-button:hover,
+.kakao-button:hover {
+    opacity: 0.9;
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* GoogleLogin 컴포넌트 내부 스타일 조정 */
+.google-button > div {
+    max-width: 400px !important;
+    width: 350px !important;
+    padding: 10px 30px !important;
+    border: 1px solid black !important;
+    border-radius: 5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: white !important;
+    color: black !important;
+    font-family: "S-CoreDream-3Light" !important;
+    font-size: 16px !important;
+}
+
+/* GoogleLogin 내부 모든 텍스트 요소에 폰트 강제 적용 */
+.google-button * {
+    font-family: "S-CoreDream-3Light" !important;
+    font-size: 16px !important;
+    color: black !important;
+}
+
+.google-button > div:hover {
+    opacity: 0.9;
+}

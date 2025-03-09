@@ -11,6 +11,18 @@
   text-decoration: none;
 }
 
+.login-text {
+  font-size: 15px;
+  font-weight: lighter;
+  color: white;
+  text-decoration: none;
+}
+.signup-text {
+  font-size: 15px;
+  font-weight: lighter;
+  color: white;
+  text-decoration: none;
+}
 /* .underline {
   width: 40px;
   height: 3px;
@@ -19,11 +31,12 @@
   margin-left: 5px;
 } */
 
-.nav-link i {
+.nav-link span {
   color: white;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
-.nav-link i:hover {
+.nav-link span:hover {
   color: gray;
 }
+

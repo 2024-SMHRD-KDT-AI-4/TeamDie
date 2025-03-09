@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "S-CoreDream-3Light";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.signup-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .signup-container h2 {
+    color: black;
+    font-size: 50px;
+    margin-bottom: 60px;
+    font-family: "S-CoreDream-3Light";
+  }
+  
+  .google-button {
+    max-width: 400px; /* 최대 폭 설정 */
+    width: 350px !important; /* 부모 컨테이너 대비 90% 크기 */
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border: 1px solid lightgrey; /* 1px 두께의 검정색 테두리 추가 */
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px; /* 버튼 간 간격 */
+  }
+  .kakao-button {
+    max-width: 400px; /* 최대 폭 설정 */
+    width: 350px !important; /* 부모 컨테이너 대비 90% 크기 */
+    padding: 10px;
+    background-color: #03c75a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px; /* 버튼 간 간격 */
+  }
+  
+  .google-button {
+    background-color: white;
+    color: black;
+  }
+  
+  .google-button:hover {
+    background-color: #dddddd;
+  }
+  
+  .kakao-button {
+    background-color: #ffeb3b;
+    color: #333;
+  }
+  
+  .kakao-button:hover {
+    background-color: #fdd835;
+  }
+  

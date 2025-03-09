@@ -21,7 +21,7 @@ function ProductDetail() {
   };
 
   return (
-    <div className="container content-wrapper mt-5">  {/* content-wrapper 추가 */}
+    <div className="container mt-5">  {/* content-wrapper 추가 */}
       <h2 className="text-center">{product.name}</h2>
       <img src={product.image} alt={product.name} className="img-fluid rounded mx-auto d-block" />
       <p className="text-center">{product.description}</p>

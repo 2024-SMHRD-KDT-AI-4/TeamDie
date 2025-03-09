@@ -12,7 +12,7 @@ function UploadHealthRecords() {
   };
 
   return (
-    <div className="container content-wrapper mt-5">
+    <div className="container mt-5">
       <h2 className="mb-4 text-center">건강검진 이미지 업로드</h2>
       
       <div className="mb-3 text-center">

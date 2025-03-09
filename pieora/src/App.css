@@ -29,8 +29,10 @@ html, body {
   min-height: 100vh; /* 화면 높이에 맞춤 */
   width: 100%;
   max-width: 480px; /* content-wrapper와 동일한 크기 설정 */
+  min-width: 480px;
   justify-content: flex-start; /* 위쪽 정렬 */
   align-items: center; /* 중앙 정렬 */
+  font-family:"S-CoreDream-3Light";
 }
 
 /* 콘텐츠 영역 래퍼 (가로폭 480px 고정, 중앙 정렬) */
