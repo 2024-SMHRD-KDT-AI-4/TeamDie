@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
-import AuthPage from "./pages/AuthPage";
+
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UploadHealthRecords from "./pages/UploadHealthRecords";
@@ -20,7 +20,7 @@ function App() {
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/upload-health-records" element={<UploadHealthRecords />} />
-          <Route path="/auth" element={<AuthPage />} />
+          
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
