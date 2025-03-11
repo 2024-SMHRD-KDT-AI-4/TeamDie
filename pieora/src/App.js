@@ -9,6 +9,8 @@ import UploadHealthRecords from "./pages/UploadHealthRecords";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CartPage from "./pages/CartPage";
+
 import "./App.css";
 
 function App() {
@@ -24,10 +26,11 @@ function App() {
 
             <Route element={<ProtectedRoute />}>
              <Route path="/upload-health-records" element={<UploadHealthRecords />} />
+             <Route path="/cartpage" element={<CartPage />} />
             </Route>
             
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<Signup />} />s
           </Routes>
         </div>
         <Footer />

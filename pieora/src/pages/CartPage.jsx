@@ -18,15 +18,8 @@ const CartPage = () => {
     const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     return (
-        <div>
-            {/* Header */}
-            <nav className="navbar navbar-dark bg-dark">
-                <div className="container">
-                    <a className="navbar-brand" href="#">피어나</a>
-                </div>
-            </nav>
-            
-            {/* Main Content */}
+        <div>            
+
             <div className="container mt-5">
                 <h2 className="text-center">장바구니</h2>
                 <div className="table-responsive mt-4">
@@ -68,10 +61,6 @@ const CartPage = () => {
                 </div>
             </div>
             
-            {/* Footer */}
-            <footer className="bg-dark text-white text-center py-3 mt-5">
-                <p>&copy; 2025 IAM Clone. All rights reserved.</p>
-            </footer>
         </div>
     );
 };

@@ -21,24 +21,34 @@ function Header() {
           {!["/login", "/signup"].includes(location.pathname) && (
             isLoggedIn ? (
               <>
-                <Link className="nav-link" to="/cart" title="장바구니">
-                  <i className="bi bi-cart fs-4 cart-icon" style={{ fontSize: '30px' }}></i>
-                </Link>
-                <Link className="nav-link" to="/profile" title="프로필">
+                <button
+                  className="nav-link"
+                  onClick={() => navigate("/cartpage")}
+                  title="장바구니"
+                  style={{ background: "none", border: "none", cursor: "pointer" }}
+                >
+                  <i className="bi bi-cart fs-4 cart-icon" style={{ fontSize: "30px" }}></i>
+                </button>
+                <button
+                  className="nav-link"
+                  onClick={() => navigate("/profile")}
+                  title="프로필"
+                  style={{ background: "none", border: "none", cursor: "pointer" }}
+                >
                   <i className="bi bi-person-circle fs-4 profile-icon"></i>
-                </Link>
+                </button>
 
                 {/* 로그아웃을 Link로 변경 */}
-                <Link 
-                  className="nav-link" 
+                <Link
+                  className="nav-link"
                   title="로그아웃"
                   onClick={() => {
                     logout();
                     navigate("/");
                   }}
                 >
-                  <i 
-                    className="bi bi-box-arrow-right fs-4 logout-icon" 
+                  <i
+                    className="bi bi-box-arrow-right fs-4 logout-icon"
                     style={{
                       color: '#000000',  // 원하는 색상
                       fontSize: '24px'
@@ -49,8 +59,8 @@ function Header() {
             ) : (
               <>
                 <Link className="nav-link" to="/login" title="로그인">
-                  <i 
-                    className="bi bi-box-arrow-in-right fs-4" 
+                  <i
+                    className="bi bi-box-arrow-in-right fs-4"
                     style={{
                       color: '#000000',  // 원하는 색상
                       fontSize: '24px'
@@ -59,8 +69,8 @@ function Header() {
                 </Link>
 
                 <Link className="nav-link" to="/signup" title="회원가입">
-                  <i 
-                    className="bi bi-person-plus fs-4" 
+                  <i
+                    className="bi bi-person-plus fs-4"
                     style={{
                       color: '#000000',  // 원하는 색상
                       fontSize: '24px'
