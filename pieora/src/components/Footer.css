@@ -1,7 +1,7 @@
 /* src/components/Footer.css */
 
 .footer {
-  background-color: #ffffff !important;  /* Bootstrap의 bg-dark와 비슷한 색상 */
+  background-color: white !important;  /* Bootstrap의 bg-dark와 비슷한 색상 */
   color: #000000 !important; /* 텍스트 색상 검정으로 */
   text-align: center;
   padding: 10px 20px; /* 내부 여백 */

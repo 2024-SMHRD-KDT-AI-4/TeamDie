@@ -13,13 +13,10 @@
     "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-<<<<<<< HEAD
     "framer-motion": "^12.4.10",
     "gsap": "^3.12.7",
-=======
     "cors": "^2.8.5",
     "jsonwebtoken": "^9.0.2",
->>>>>>> b8bf1e5a80d8206e84be345b1ada52939427bd83
     "jwt-decode": "^4.0.0",
     "mysql2": "^3.13.0",
     "postcss": "^8.5.3",

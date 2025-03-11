@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap"; // gsap import
 import { motion } from "framer-motion"; // motion import 추가
-import { useNavigate } from "react-router-dom";
 
 
 function Home() {
