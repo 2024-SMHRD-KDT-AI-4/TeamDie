@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap"; // gsap import
 import { motion } from "framer-motion"; // motion import 추가
 import { useNavigate } from "react-router-dom";
-
 
 function Home() {
   const products = [
@@ -15,75 +13,78 @@ function Home() {
   ];
 
   const navigate = useNavigate();
-  const logoRef = useRef(null);
-  const headingRef = useRef(null);
-  const buttonRef = useRef(null);
+
+  // 이미지 배열과 상태 정의
+  const images = ["/images/메인페이지.png", "/images/대체이미지1.jpg", "/images/대체이미지2.jpg"];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    gsap.fromTo(
-      logoRef.current,
-      { opacity: 0, scale: 0.5 },
-      { opacity: 1, scale: 1, duration: 1.5, ease: "easeInOut" }
-    );
+    // 이미지 자동 전환
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // 3초마다 이미지 전환
 
-    gsap.fromTo(
-      buttonRef.current,
-      { opacity: 0 },
-      { opacity: 1, delay: 1.5, duration: 1 }
-    );
-
-    gsap.fromTo(
-      headingRef.current,
-      { opacity: 0, y: -100 },
-      { opacity: 1, y: 0, duration: 1, ease: "easeOut" }
-    );
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 제거
   }, []);
 
   return (
     <div>
       <div className="container-fluid content-wrapper home-content">
-        <h1 className="display-4 text-black text-center" ref={headingRef}>
-          <span className="text-danger">장수</span>잠자리
+        <h1 className="display-4 text-black text-center">
+          <span className="text-danger">장수</span>풍뎅이
         </h1>
 
-        <motion.img
-          src="/images/메인페이지.png"
-          alt="움직이는 이미지"
-          className="moving-image"
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 2 }}  
+        {/* 이미지 자동 전환 (부드러운 페이드 인/아웃 효과 추가) */}
+        <motion.div
+          key={currentImageIndex} // 이 부분을 추가하여 각 이미지마다 개별적으로 애니메이션을 적용
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           transition={{
-            duration: 3.5,
+            duration: 3.5, // 2초동안 전환
             ease: "easeInOut",
           }}
-          ref={logoRef} // 여기에도 ref 추가
-        />
+          style={{
+            width: "100%",  // 이미지가 화면 전체에 맞게 크기 설정
+            height: "500px", // 이미지의 고정된 높이 설정 (필요에 따라 조정)
+            overflow: "hidden", // 넘치는 부분은 숨기기
+          }}
+        >
+          <img
+            src='/images/메인페이지.png'
+            
+            alt="움직이는 이미지"
+            className="moving-image"
+            style={{
+              width: "100%",  // 이미지가 가로에 맞게 늘어나도록 설정
+              height: "100%", // 이미지가 세로에 맞게 늘어나도록 설정
+              objectFit: "cover", // 비율을 유지하면서 크기에 맞게 잘라내기
+            }}
+          />
+        </motion.div>
 
         <h1 className="lead text-center fw-bold">건강검진 분석</h1>
 
         <button
           className="btn btn-primary d-block mx-auto"
           onClick={() => navigate("/upload-health-records")}
-          ref={buttonRef}>
+        >
           시작하기
         </button>
       </div>
 
       <div className="mt-5">
-
         <h2 className="mb-4 text-center fw-bold">제품 목록</h2>
 
         <div className="row">
           {products.map((product) => (
             <div key={product.id} className="col-md-6 col-lg-6 mb-4">
               <div className="card p-4 shadow-sm custom-card">
-
                 <img
                   src={product.image}
                   alt={product.name}
                   className="card-img-top img-fluid custom-image"
                 />
-
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.description}</p>
@@ -100,6 +101,4 @@ function Home() {
   );
 }
 
-
 export default Home;
-
