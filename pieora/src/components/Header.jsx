@@ -29,7 +29,7 @@ function Header() {
                   className="btn btn-outline-light btn-sm"
                   onClick={() => {
                     logout();
-                    navigate("/login");
+                    navigate("/");
                   }}
                 >
                   로그아웃
