@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 
+
 function Header() {
   const location = useLocation();
   
@@ -11,11 +12,13 @@ function Header() {
   const isLoggedIn = false; // 이 부분은 실제 인증 로직으로 대체해야 함 (예: Redux, Context API 등)
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar custom-navbar">
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        {/* 로고 */}
+      
         <Link className="navbar-brand fw-bold" to="/">
-          피어나
+        <img src="/images/p4.png" alt="" className="logo-img me-2" />
+        <span className="fw-bold text-white">피어나</span>
+          
         </Link>
 
         <div className="d-flex gap-2">
@@ -30,10 +33,10 @@ function Header() {
               // 로그인되지 않은 경우: 로그인과 회원가입 글자 표시
               <>
                 <Link className="nav-link" to="/login">
-                  <span className="login-text">로그인</span>
+                    <span className="login-text fw-bold ">로그인</span>
                 </Link>
                 <Link className="nav-link" to="/signup">
-                  <span className="signup-text">회원가입</span>
+                  <span className="signup-text fw-bold ">회원가입</span>
                 </Link>
               </>
             )

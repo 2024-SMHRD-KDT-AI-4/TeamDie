@@ -89,18 +89,18 @@ function LoginContent() {
     };
 
     return (
-        <div className="login-container">
+        <div className=" login-container fw-bold ">
             <h2>로그인</h2>
             <div className="google-login">
                 <button onClick={() => googleLogin()} className="google-button">
                     <img src="/images/googleimg.png" alt="Google Logo" className="button-icon" />
-                    구글로 시작하기
+                    구글로 로그인하기
                 </button>
             </div>
             <div className="kakao-login">
                 <button onClick={kakaoLogin} className="kakao-button">
                     <img src="/images/kakaoimg.png" alt="Kakao Logo" className="button-icon" />
-                    카카오로 시작하기
+                    카카오로 로그인하기
                 </button>
             </div>
         </div>

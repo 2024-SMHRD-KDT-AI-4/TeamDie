@@ -1,6 +1,6 @@
 .navbar {
   width: 100%;
-  background-color: #282c34;
+  background-color: #ffffff;
   padding: 10px 20px;
 }
 
@@ -14,13 +14,13 @@
 .login-text {
   font-size: 15px;
   font-weight: lighter;
-  color: white;
+  color: rgb(0, 0, 0) !important; 
   text-decoration: none;
 }
 .signup-text {
   font-size: 15px;
   font-weight: lighter;
-  color: white;
+  color: rgb(2, 0, 0) !important;
   text-decoration: none;
 }
 /* .underline {
@@ -37,6 +37,16 @@
 }
 
 .nav-link span:hover {
-  color: gray;
+  color: rgb(255, 255, 255);
 }
 
+.logo-img {
+  height: 45px; /* 네비게이션 바 높이에 맞춤 */
+  width: 82px; /* 비율 유지 */
+  cursor: pointer; /* 클릭 가능 느낌 */
+} 
+
+
+.custom-navbar {
+  background-color: #ffffff; /* 원하는 색상 (예: 주황색) */
+}

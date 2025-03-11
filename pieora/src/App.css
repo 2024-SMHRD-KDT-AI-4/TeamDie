@@ -79,10 +79,49 @@ html, body {
 
 /* 홈 컨텐츠 중앙 정렬 */
 .home-content {
-  text-align: center; /* 가로 중앙 정렬 */
+  text-align: center !important; /* 가로 중앙 정렬 */
 }
 
 /* 네비게이션 바, 푸터, 버튼에 글꼴 적용 */
 .navbar, .footer, button {
   font-family: "S-CoreDream-3Light", sans-serif !important;
 }
+
+.btn-primary {
+  background-color: #070100 !important; /* 배경색 */
+  color: white !important; /* 텍스트 색상 */
+}
+
+.btn-primary:hover {
+  background-color: #fa2727 !important; /* hover 시 색상 */
+}
+
+
+
+/* 버튼의 기본 상태에서도 테두리 색을 변경하려면 */
+.custom-button {
+  border: 2px solid transparent !important; /* 기본 테두리를 투명하게 설정 */
+}
+
+.center-button{
+  display: flex; /* Flexbox 설정 */
+  justify-content: center !important; }
+
+
+  .btn {
+    border: none !important;  /* 기본 테두리 제거 */
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
