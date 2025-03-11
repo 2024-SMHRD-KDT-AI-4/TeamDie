@@ -6,14 +6,15 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS 임포트
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
-
+localStorage.removeItem("token");
+localStorage.removeItem("user");
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <React.StrictMode>
+  
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  
 );

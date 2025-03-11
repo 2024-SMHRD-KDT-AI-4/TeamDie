@@ -31,12 +31,10 @@ function Header() {
                 {/* 로그아웃을 Link로 변경 */}
                 <Link 
                   className="nav-link" 
-                  to="/login" 
                   title="로그아웃"
                   onClick={() => {
                     logout();
                     navigate("/");
-
                   }}
                 >
                   <i 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap"; // gsap import
 import { motion } from "framer-motion"; // motion import 추가
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const products = [
@@ -13,8 +13,9 @@ function Home() {
 
   const navigate = useNavigate();
 
-  // 이미지 배열과 상태 정의
-  const images = ["/images/메인페이지.png", "/images/대체이미지1.jpg", "/images/대체이미지2.jpg"];
+  // 이미지 배열을 useMemo로 메모이제이션하여 불필요한 리렌더링 방지
+  const images = useMemo(() => ["/images/mainpage.png", "/images/p10.png", "/images/p4.png"], []);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -24,35 +25,34 @@ function Home() {
     }, 3000); // 3초마다 이미지 전환
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 제거
-  }, []);
+  }, [images.length]); // images.length를 의존성 배열에 추가하여 ESLint 경고 해결
 
   return (
     <div>
       <div className="container-fluid content-wrapper home-content">
         <h1 className="display-4 text-black text-center">
-          <span className="text-danger">장수</span>풍뎅이
+          <span className="text-danger">사슴</span>벌레
         </h1>
 
         {/* 이미지 자동 전환 (부드러운 페이드 인/아웃 효과 추가) */}
         <motion.div
-          key={currentImageIndex} // 이 부분을 추가하여 각 이미지마다 개별적으로 애니메이션을 적용
+          key={currentImageIndex} // 각 이미지마다 개별적으로 애니메이션 적용
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            duration: 3.5, // 2초동안 전환
+            duration: 3.5, // 3.5초 동안 전환
             ease: "easeInOut",
           }}
           style={{
             width: "100%",  // 이미지가 화면 전체에 맞게 크기 설정
-            height: "500px", // 이미지의 고정된 높이 설정 (필요에 따라 조정)
+            height: "350px", // 이미지의 고정된 높이 설정 (필요에 따라 조정)
             overflow: "hidden", // 넘치는 부분은 숨기기
           }}
         >
           <img
-            src='/images/메인페이지.png'
-            
-            alt="움직이는 이미지"
+            src={images[currentImageIndex]} // currentImageIndex를 사용하여 배열에서 이미지 선택
+            alt={`슬라이드 이미지 ${currentImageIndex}`} // alt 텍스트 설정
             className="moving-image"
             style={{
               width: "100%",  // 이미지가 가로에 맞게 늘어나도록 설정
