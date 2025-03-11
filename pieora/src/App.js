@@ -23,7 +23,7 @@ function App() {
             <Route path="/products/:id" element={<ProductDetail />} />
 
             <Route element={<ProtectedRoute />}>
-            <Route path="/upload-health-records" element={<UploadHealthRecords />} />
+             <Route path="/upload-health-records" element={<UploadHealthRecords />} />
             </Route>
             
             <Route path="/login" element={<Login />} />
