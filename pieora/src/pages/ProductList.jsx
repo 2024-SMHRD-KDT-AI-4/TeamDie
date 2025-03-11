@@ -9,12 +9,12 @@ function ProductList() {
   ];
 
   return (
-    <div className="container content-wrapper mt-5">  {/* content-wrapper 추가 */}
+    <div className="container mt-5">
       <h2 className="mb-4 text-center">제품 목록</h2>
-      <div className="row">
+      <div className="row gy-4">  {/* gy-4로 세로 간격 조정 */}
         {products.map((product) => (
           <div key={product.id} className="col-md-6">
-            <div className="card p-3 shadow-sm">
+            <div className="card p-3 shadow-sm mb-4"> {/* mb-4로 카드 간격 추가 */}
               <img src={product.image} alt={product.name} className="img-fluid rounded mx-auto d-block" />
               <h5 className="card-title mt-2 text-center">{product.name}</h5>
               <p className="card-text text-center">{product.description}</p>
@@ -28,5 +28,6 @@ function ProductList() {
     </div>
   );
 }
+
 
 export default ProductList;

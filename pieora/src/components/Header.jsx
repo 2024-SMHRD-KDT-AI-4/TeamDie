@@ -29,6 +29,7 @@ function Header() {
                 >
                   <i className="bi bi-cart fs-4 cart-icon" style={{ fontSize: "30px" }}></i>
                 </button>
+
                 <button
                   className="nav-link"
                   onClick={() => navigate("/profile")}

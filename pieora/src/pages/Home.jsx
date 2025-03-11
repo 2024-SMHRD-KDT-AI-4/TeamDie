@@ -74,7 +74,6 @@ function Home() {
 
       <div className="mt-5">
         <h2 className="mb-4 text-center fw-bold">제품 목록</h2>
-
         <div className="row">
           {products.map((product) => (
             <div key={product.id} className="col-md-6 col-lg-6 mb-4">

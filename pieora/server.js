@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const { pool, testConnection } = require("./config/db");
 const authRoutes = require("./routes/auth");
+const cartRouter = require("./routes/cartApi");
 
 const app = express();
 
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors({
   origin: process.env.REACT_APP_CLIENT_ORIGIN || 'http://localhost:3000',
   credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ✅ PUT 추가
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
@@ -25,6 +26,7 @@ app.use(express.json());
 
 // 라우터 등록
 app.use("/api", authRoutes);
+app.use("/api", cartRouter);
 
 // 서버 시작
 const PORT = process.env.SERVER_PORT || 5050;
