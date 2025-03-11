@@ -32,7 +32,7 @@ function Header() {
 
                 <button
                   className="nav-link"
-                  onClick={() => navigate("/profile")}
+                  onClick={() => navigate("/mypage")}
                   title="프로필"
                   style={{ background: "none", border: "none", cursor: "pointer" }}
                 >

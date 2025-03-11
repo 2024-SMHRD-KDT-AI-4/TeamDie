@@ -4,7 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const { pool, testConnection } = require("./config/db");
 const authRoutes = require("./routes/auth");
-const cartRouter = require("./routes/cartApi");
+const cartRouter = require("./routes/cart");
+const userRouter = require("./routes/user");
 
 const app = express();
 
@@ -26,7 +27,9 @@ app.use(express.json());
 
 // 라우터 등록
 app.use("/api", authRoutes);
-app.use("/api", cartRouter);
+app.use("/api/cartpage", cartRouter);
+app.use("/api/mypage", userRouter);
+
 
 // 서버 시작
 const PORT = process.env.SERVER_PORT || 5050;

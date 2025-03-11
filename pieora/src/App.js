@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CartPage from "./pages/CartPage";
+import MyPage from "./pages/MyPage";
 
 import "./App.css";
 
@@ -27,6 +28,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
              <Route path="/upload-health-records" element={<UploadHealthRecords />} />
              <Route path="/cartpage" element={<CartPage />} />
+             <Route path="/mypage" element={<MyPage />} />
             </Route>
             
             <Route path="/login" element={<Login />} />

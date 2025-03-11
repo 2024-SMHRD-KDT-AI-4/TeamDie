@@ -27,6 +27,7 @@ const loginToBackend = async (userInfo, navigate, login) => { // ✅ login 함�
       const token = response.data.token;
       login(token); // ✅ AuthContext의 login 호출
       localStorage.setItem("token", token); // 선택적으로 유지 (중복 저장)
+      console.log("로그인 후 저장된 토큰:", localStorage.getItem("token")); // ✅ 콘솔 확인
       localStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/");
     }
@@ -87,8 +88,11 @@ function LoginContent() {
       return;
     }
 
-    window.Kakao.Auth.authorize({
+    window.Kakao.Auth.login({
+      scope: "profile_nickname, account_email",
       success: async (authObj) => {
+        console.log("카카오 로그인 성공:", authObj);
+
         try {
           const response = await new Promise((resolve, reject) => {
             window.Kakao.API.request({
@@ -97,14 +101,15 @@ function LoginContent() {
               fail: reject,
             });
           });
+
+          console.log("카카오 사용자 정보:", response);
           const userInfo = {
             provider: "kakao",
             provider_id: String(response.id),
             email: response.kakao_account?.email || null,
             nickname: response.properties?.nickname || null,
-            profile_image: response.properties?.profile_image || null,
           };
-          await loginToBackend(userInfo, navigate, login); // ✅ login 함수 전달
+          await loginToBackend(userInfo, navigate, login); // ✅ 백엔드로 로그인 정보 전송
         } catch (error) {
           console.error("카카오 사용자 정보 가져오기 실패:", error);
           alert("카카오 로그인 처리 중 오류가 발생했습니다.");
