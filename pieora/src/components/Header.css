@@ -42,11 +42,38 @@
 
 .logo-img {
   height: 45px; /* 네비게이션 바 높이에 맞춤 */
-  width: 82px; /* 비율 유지 */
+  width: 78px; /* 비율 유지 */
   cursor: pointer; /* 클릭 가능 느낌 */
 } 
 
 
 .custom-navbar {
   background-color: #ffffff; /* 원하는 색상 (예: 주황색) */
+}
+
+.cart-icon {
+  color: #000000 !important;/* 장바구니 아이콘 색상 (예: 토마토색) */
+  
+}
+
+.profile-icon {
+  color: #080808 !important; /* 프로필 아이콘 색상 (예: 파란색) */
+}
+
+.logout-icon {
+  color: #000000 !important; /* 로그아웃 아이콘 색상 (예: 초록색) */
+}
+
+
+.nav-link i:hover {
+  transform: scale(1.2) !important;  /* 아이콘 크기 확대 */
+  color: #ff3030 !important;  /* 색상 변경 */
+  cursor: pointer !important;  /* 커서를 포인터로 변경 (버튼처럼 클릭할 수 있다는 느낌) */
+  transition: transform 0.2s ease, color 0.2s ease !important;  /* 부드러운 트랜지션 효과 */
+}
+
+/* 아이콘 클릭 시 활성화 상태 */
+.nav-link i:active {
+  transform: scale(1) !important;  /* 클릭 시 원래 크기로 돌아오기 */
+  color: #ff3030 !important;  /* 클릭 시 색상 변경 */
 }
