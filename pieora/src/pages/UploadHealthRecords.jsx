@@ -11,6 +11,8 @@ function UploadHealthRecords() {
     }
   };
 
+  
+
   return (
     <div className="container mt-5">
       <h2 className="mb-4 text-center">건강검진 이미지 업로드</h2>

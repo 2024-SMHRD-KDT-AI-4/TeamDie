@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap"; // gsap import
 import { motion } from "framer-motion"; // motion import 추가
+import { useNavigate } from "react-router-dom";
+
 
 function Home() {
   const products = [
@@ -13,7 +15,6 @@ function Home() {
   ];
 
   const navigate = useNavigate();
-  
   const logoRef = useRef(null);
   const headingRef = useRef(null);
   const buttonRef = useRef(null);
@@ -63,23 +64,26 @@ function Home() {
         <button
           className="btn btn-primary d-block mx-auto"
           onClick={() => navigate("/upload-health-records")}
-          ref={buttonRef}
-        >
+          ref={buttonRef}>
           시작하기
         </button>
       </div>
 
       <div className="mt-5">
+
         <h2 className="mb-4 text-center fw-bold">제품 목록</h2>
+
         <div className="row">
           {products.map((product) => (
             <div key={product.id} className="col-md-6 col-lg-6 mb-4">
               <div className="card p-4 shadow-sm custom-card">
+
                 <img
                   src={product.image}
                   alt={product.name}
                   className="card-img-top img-fluid custom-image"
                 />
+
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.description}</p>
@@ -96,4 +100,6 @@ function Home() {
   );
 }
 
+
 export default Home;
+
