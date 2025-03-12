@@ -5,12 +5,14 @@ import axios from "axios";
 function CheckoutPage() {
   const [cart, setCart] = useState([]);
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone1, setPhone1] = useState("");
+  const [phone2, setPhone2] = useState("");
+  const [phone3, setPhone3] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("credit_card");
+  const [detailAddress, setDetailAddress] = useState("");
   const navigate = useNavigate();
-  
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -32,19 +34,35 @@ function CheckoutPage() {
     });
   }, [token, navigate]);
 
+  // 아임포트 스크립트 로드
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    script.async = true;
-    script.onload = () => {
-      console.log("✅ 카카오 우편번호 API 스크립트 로드 완료");
-      if (window.daum && window.daum.Postcode) {
-        console.log("✅ window.daum.Postcode 정상 로드됨");
-      } else {
-        console.error("🚨 window.daum.Postcode가 로드되지 않음");
+    const impScript = document.createElement("script");
+    impScript.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    impScript.async = true;
+    impScript.onload = () => {
+      console.log("✅ 아임포트 스크립트 로드 완료");
+      if (typeof window !== "undefined") {
+        window.IMP.init(process.env.REACT_APP_IAMPORT_MID);
       }
     };
-    document.body.appendChild(script);
+    document.body.appendChild(impScript);
+
+    return () => {
+      document.body.removeChild(impScript);
+    };
+  }, []);
+
+  // 카카오 우편번호 API 로드
+  useEffect(() => {
+    const postcodeScript = document.createElement("script");
+    postcodeScript.src = "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    postcodeScript.async = true;
+    postcodeScript.onload = () => console.log("✅ 카카오 우편번호 API 스크립트 로드 완료");
+    document.body.appendChild(postcodeScript);
+
+    return () => {
+      document.body.removeChild(postcodeScript);
+    };
   }, []);
 
   const getTotalPrice = () => {
@@ -65,32 +83,21 @@ function CheckoutPage() {
     }).open();
   };
 
-  const handleCheckout = () => {
-    if (!name || !phone || !address || !zipcode) {
-      alert("배송 정보를 모두 입력해주세요.");
+  const handleCertification = () => {
+    if (!window.IMP) {
+      alert("아임포트가 초기화되지 않았습니다. 페이지를 새로고침해주세요.");
       return;
     }
-
-    const orderData = {
-      name,
-      phone,
-      address,
-      zipcode,
-      paymentMethod,
-      totalAmount: getTotalPrice(),
-      items: cart.map(item => ({ id: item.id, quantity: item.quantity })),
-    };
-
-    axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, orderData, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then(() => {
-      alert("결제가 완료되었습니다!");
-      navigate("/order-success");
-    })
-    .catch(error => {
-      console.error("Error processing order:", error);
-      alert("결제 처리 중 오류가 발생했습니다.");
+    window.IMP.certification({
+      merchant_uid: `cert_${new Date().getTime()}`,
+      pg: "html5_inicis",
+      m_redirect_url: "https://your-redirect-url.com",
+    }, async (response) => {
+      if (response.success) {
+        alert("카드 인증이 완료되었습니다!");
+      } else {
+        alert(`카드 인증 실패: ${response.error_msg}`);
+      }
     });
   };
 
@@ -107,58 +114,32 @@ function CheckoutPage() {
           <h4>총액: {getTotalPrice().toLocaleString()} 원</h4>
           <div className="mb-3">
             <label className="form-label">이름</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)}
-            />
+            <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="mb-3">
             <label className="form-label">연락처</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              value={phone} 
-              onChange={(e) => setPhone(e.target.value)}
-            />
+            <div className="d-flex">
+              <input type="text" className="form-control me-1" placeholder="010" maxLength="3" value={phone1} onChange={(e) => setPhone1(e.target.value)} />
+              <input type="text" className="form-control me-1" placeholder="1234" maxLength="4" value={phone2} onChange={(e) => setPhone2(e.target.value)} />
+              <input type="text" className="form-control" placeholder="5678" maxLength="4" value={phone3} onChange={(e) => setPhone3(e.target.value)} />
+            </div>
           </div>
           <div className="mb-3">
             <label className="form-label">우편번호</label>
             <div className="d-flex">
-              <input 
-                type="text" 
-                className="form-control me-2" 
-                value={zipcode} 
-                onChange={(e) => setZipcode(e.target.value)}
-                readOnly
-              />
+              <input type="text" className="form-control me-2" value={zipcode} readOnly />
               <button className="btn btn-secondary" onClick={handleZipcodeSearch}>검색</button>
             </div>
           </div>
           <div className="mb-3">
             <label className="form-label">배송 주소</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              value={address} 
-              onChange={(e) => setAddress(e.target.value)}
-              readOnly
-            />
+            <input type="text" className="form-control" value={address} readOnly />
           </div>
           <div className="mb-3">
-            <label className="form-label">결제 방법</label>
-            <select 
-              className="form-select" 
-              value={paymentMethod} 
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            >
-              <option value="credit_card">신용카드</option>
-              <option value="bank_transfer">계좌이체</option>
-              <option value="paypal">페이팔</option>
-            </select>
+            <label className="form-label">상세 주소</label>
+            <input type="text" className="form-control" value={detailAddress} onChange={(e) => setDetailAddress(e.target.value)} />
           </div>
-          <button className="btn btn-primary w-100" onClick={handleCheckout}>결제하기</button>
+          <button className="btn btn-primary w-100" onClick={() => navigate("/final")}>결제 하기</button>
         </div>
       )}
     </div>

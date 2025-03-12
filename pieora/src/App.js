@@ -12,7 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CartPage from "./pages/CartPage";
 import MyPage from "./pages/MyPage";
 import CheckoutPage from "./pages/CheckoutPage";
-
+import Final from "./pages/Final";
 import "./App.css";
 
 function App() {
@@ -34,7 +34,8 @@ function App() {
             </Route>
             
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />s
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/final" element={<Final />} />
           </Routes>
         </div>
         <Footer />
