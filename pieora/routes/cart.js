@@ -23,7 +23,7 @@ cartRouter.get("/cart", authenticateJWT, async (req, res) => { // ✅ 미들웨�
 });
 
 // ✅ 장바구니에 상품 추가
-cartRouter.post("/cart", authenticateJWT, (req, res) => {
+cartRouter.post("/cart", authenticateJWT, async (req, res) => {
     const userId = req.user.id; // ✅ provider_id 대신 user_id 사용
     const { product_id, name, description, image, quantity, price } = req.body;
 
@@ -31,15 +31,19 @@ cartRouter.post("/cart", authenticateJWT, (req, res) => {
         return res.status(400).json({ error: "필수 항목을 모두 입력해야 합니다." });
     }
 
-    const sql = "INSERT INTO cart (user_id, product_id, name, description, image, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    db.query(sql, [userId, product_id, name, description, image, quantity, price], (err, result) => {
-        if (err) return res.status(500).json({ error: "데이터베이스 오류: " + err.message });
+    try {
+        const [result] = await db.pool.query(
+            "INSERT INTO cart (user_id, product_id, name, description, image, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [userId, product_id, name, description, image, quantity, price]
+        );
         res.json({ message: "상품이 장바구니에 추가되었습니다.", id: result.insertId });
-    });
+    } catch (err) {
+        res.status(500).json({ error: "데이터베이스 오류: " + err.message });
+    }
 });
 
 // ✅ 장바구니 상품 수량 업데이트
-cartRouter.put("/cart/:id", authenticateJWT, (req, res) => {
+cartRouter.put("/cart/:id", authenticateJWT, async (req, res) => {
     const userId = req.user.id;
     const { quantity } = req.body;
 
@@ -47,28 +51,29 @@ cartRouter.put("/cart/:id", authenticateJWT, (req, res) => {
         return res.status(400).json({ error: "수량은 1 이상이어야 합니다." });
     }
 
-    const sql = "UPDATE cart SET quantity = ? WHERE id = ? AND user_id = ?";
-    db.query(sql, [quantity, req.params.id, userId], (err, result) => {
-        if (err) return res.status(500).json({ error: "서버 오류: " + err.message });
+    try {
+        const [result] = await db.pool.query("UPDATE cart SET quantity = ? WHERE id = ? AND user_id = ?", [quantity, req.params.id, userId]);
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: "해당 상품을 찾을 수 없습니다." });
         }
         res.json({ message: "상품 수량이 변경되었습니다." });
-    });
+    } catch (err) {
+        res.status(500).json({ error: "서버 오류: " + err.message });
+    }
 });
 
 // ✅ 장바구니에서 상품 삭제
-cartRouter.delete("/cart/:id", authenticateJWT, (req, res) => {
+cartRouter.delete("/cart/:id", authenticateJWT, async (req, res) => {
     const userId = req.user.id;
-    const sql = "DELETE FROM cart WHERE id = ? AND user_id = ?";
-
-    db.query(sql, [req.params.id, userId], (err, result) => {
-        if (err) return res.status(500).json({ error: "서버 오류: " + err.message });
+    try {
+        const [result] = await db.pool.query("DELETE FROM cart WHERE id = ? AND user_id = ?", [req.params.id, userId]);
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: "삭제할 상품이 없습니다." });
         }
         res.json({ message: "상품이 삭제되었습니다." });
-    });
+    } catch (err) {
+        res.status(500).json({ error: "서버 오류: " + err.message });
+    }
 });
 
 module.exports = cartRouter;

@@ -5,14 +5,12 @@ import axios from "axios";
 function CartPage() {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
-
+  
   // ✅ JWT 토큰 가져오기
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     // ✅ 로그인하지 않은 경우 로그인 페이지로 이동
-    console.log("장바구니 페이지에서 불러온 토큰:", token); // ✅ 콘솔 확인
-
     if (!token) {
       navigate("/login");
       return;
@@ -23,14 +21,14 @@ function CartPage() {
         Authorization: `Bearer ${token}`,  // ✅ 토큰 추가
       },
     })
-      .then(response => setCart(response.data))
-      .catch(error => {
-        console.error("Error fetching cart data:", error);
-        if (error.response && error.response.status === 401) {
-          alert("로그인이 필요합니다.");
-          navigate("/login");
-        }
-      });
+    .then(response => setCart(response.data))
+    .catch(error => {
+      console.error("Error fetching cart data:", error);
+      if (error.response && error.response.status === 401) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+      }
+    });
   }, [token, navigate]);
 
   const handleRemove = (id) => {
@@ -39,8 +37,8 @@ function CartPage() {
         Authorization: `Bearer ${token}`, // ✅ 토큰 추가
       },
     })
-      .then(() => setCart(cart.filter((product) => product.id !== id)))
-      .catch(error => console.error("Error removing item:", error));
+    .then(() => setCart(cart.filter((product) => product.id !== id)))
+    .catch(error => console.error("Error removing item:", error));
   };
 
   const handleQuantityChange = (id, change) => {
@@ -50,7 +48,7 @@ function CartPage() {
     setCart(updatedCart);
 
     const updatedProduct = updatedCart.find(product => product.id === id);
-    axios.put(`${process.env.REACT_APP_API_URL}/api/cartpage/cart/${id}`,
+    axios.put(`${process.env.REACT_APP_API_URL}/api/cartpage/cart/${id}`, 
       { quantity: updatedProduct.quantity },
       {
         headers: {
@@ -58,7 +56,7 @@ function CartPage() {
         },
       }
     )
-      .catch(error => console.error("Error updating quantity:", error));
+    .catch(error => console.error("Error updating quantity:", error));
   };
 
   const getTotalPrice = () => {
@@ -103,8 +101,6 @@ function CartPage() {
                           +
                         </button>
                       </div>
-                      {/* ✅ 상품별 수량 따른 가격 표시 */}
-                      <div className="fw-bold">{(product.price * product.quantity).toLocaleString()} 원</div>
                       <div>
                         <button
                           className="btn btn-danger"

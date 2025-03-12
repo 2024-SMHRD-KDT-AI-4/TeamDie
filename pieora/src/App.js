@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CartPage from "./pages/CartPage";
 import MyPage from "./pages/MyPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 import "./App.css";
 
@@ -29,6 +30,7 @@ function App() {
              <Route path="/upload-health-records" element={<UploadHealthRecords />} />
              <Route path="/cartpage" element={<CartPage />} />
              <Route path="/mypage" element={<MyPage />} />
+             <Route path="/checkout" element={<CheckoutPage />} />
             </Route>
             
             <Route path="/login" element={<Login />} />

@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Header.css";
 
-
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,25 +20,28 @@ function Header() {
           {!["/login", "/signup"].includes(location.pathname) && (
             isLoggedIn ? (
               <>
-                <button
-                  className="nav-link"
-                  onClick={() => navigate("/cartpage")}
-                  title="장바구니"
-                  style={{ background: "none", border: "none", cursor: "pointer" }}
-                >
-                  <i className="bi bi-cart fs-4 cart-icon" style={{ fontSize: "30px" }}></i>
-                </button>
+                {location.pathname !== "/cartpage" && (
+                  <button
+                    className="nav-link"
+                    onClick={() => navigate("/cartpage")}
+                    title="장바구니"
+                    style={{ background: "none", border: "none", cursor: "pointer" }}
+                  >
+                    <i className="bi bi-cart fs-4 cart-icon" style={{ fontSize: "30px" }}></i>
+                  </button>
+                )}
 
-                <button
-                  className="nav-link"
-                  onClick={() => navigate("/mypage")}
-                  title="프로필"
-                  style={{ background: "none", border: "none", cursor: "pointer" }}
-                >
-                  <i className="bi bi-person-circle fs-4 profile-icon"></i>
-                </button>
+                {location.pathname !== "/mypage" && (
+                  <button
+                    className="nav-link"
+                    onClick={() => navigate("/mypage")}
+                    title="프로필"
+                    style={{ background: "none", border: "none", cursor: "pointer" }}
+                  >
+                    <i className="bi bi-person-circle fs-4 profile-icon"></i>
+                  </button>
+                )}
 
-                {/* 로그아웃을 Link로 변경 */}
                 <Link
                   className="nav-link"
                   title="로그아웃"
@@ -88,11 +90,3 @@ function Header() {
 }
 
 export default Header;
-
-
-
-
-
-
-
-
