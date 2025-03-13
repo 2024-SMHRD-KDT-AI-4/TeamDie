@@ -13,7 +13,7 @@ import CartPage from "./pages/CartPage";
 import MyPage from "./pages/MyPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import Final from "./pages/Final";
-import Result from"./pages/Result";
+import Result from"./pages/Result"
 import "./App.css";
 
 function App() {

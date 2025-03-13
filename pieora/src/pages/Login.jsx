@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext"; // ✅ AuthContext 가져오�
 // 카카오 SDK 초기화 함수
 const initKakao = () => {
   if (window.Kakao && !window.Kakao.isInitialized()) {
-    window.Kakao.init("afc1d1b96cf546359fe487cb5406089a");
+    window.Kakao.init(`${process.env.REACT_APP_KAKAO_CLIENT_ID}`);
   }
 };
 
@@ -29,6 +29,7 @@ const loginToBackend = async (userInfo, navigate, login) => { // ✅ login 함�
       localStorage.setItem("token", token); // 선택적으로 유지 (중복 저장)
       localStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/");
+      alert(response.data.alert); // ✅ 회원가입 성공 메시지 표시
     }
   } catch (error) {
     console.error("백엔드 로그인 실패:", error.message, error.response?.data);

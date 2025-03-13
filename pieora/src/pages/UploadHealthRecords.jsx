@@ -84,7 +84,7 @@ function UploadHealthRecords() {
       </div>
 
       <div className="text-center">
-        <button className="btn btn-primary" onClick={handleUpload}>OCR 분석 시작</button>
+        <button className="btn btn-primary" onClick={handleUpload}>분석 시작</button>
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ const signupToBackend = async (userInfo, navigate) => {
 
     // 회원가입 성공 시 홈화면으로 이동
     if (response.data.message === "회원가입 성공") {
+      alert(response.data.alert); // ✅ 회원가입 성공 메시지 표시
       navigate("/"); // /home으로 리다이렉트
     }
   } catch (error) {

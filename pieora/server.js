@@ -6,6 +6,8 @@ const { pool, testConnection } = require("./config/db");
 const authRoutes = require("./routes/auth");
 const cartRouter = require("./routes/cart");
 const userRouter = require("./routes/user");
+const productRouter = require("./routes/product");
+
 
 const app = express();
 
@@ -30,6 +32,7 @@ app.use("/api", authRoutes);
 app.use("/api/cartpage", cartRouter);
 app.use("/api/mypage", userRouter);
 app.use("/api/upload-health-records", userRouter);
+app.use("/api/products", productRouter);
 
 
 
