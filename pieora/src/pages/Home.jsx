@@ -83,18 +83,22 @@ function Home() {
                   alt={product.name}
                   className="card-img-top img-fluid custom-image"
                 />
-                <div className="card-body">
+                <div className="card-body text-center">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.description}</p>
-                  <Link to={`/products/${product.id}`} className="btn btn-primary custom-button">
-                    상세보기
-                  </Link>
+                  <div className="d-flex justify-content-center gap-2">
+                    <Link to={`/products/${product.id}`} className="btn btn-primary custom-button">
+                      상세보기
+                    </Link>
+                    
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
     </div>
   );
 }

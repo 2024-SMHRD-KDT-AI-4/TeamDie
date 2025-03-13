@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 const MyPage = () => {
   const [user, setUser] = useState(null);
@@ -34,7 +36,9 @@ const MyPage = () => {
           <h2 className="card-title">회원 정보</h2>
           <p className="card-text"><strong>이메일:</strong> {user.email}</p>
           <p className="card-text"><strong>닉네임:</strong> {user.nickname}</p>
-          <button className="btn btn-primary w-100 mt-3">건강 분석 보기</button>
+          <Link to={"/result"} className="btn btn-primary w-100 mt-3">
+                  건강 분석 보기
+          </Link>
         </div>
       </div>
     </div>
