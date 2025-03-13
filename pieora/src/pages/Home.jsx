@@ -2,19 +2,19 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion"; // motion import 추가
 import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 function Home() {
   const products = [
-    { id: 1, name: "비타민C", description: "건강을 위한 비타민C", image: "/images/img1.jpg" },
-    { id: 2, name: "오메가3", description: "뇌 건강을 위한 오메가3", image: "/images/img2.jpg" },
-    { id: 3, name: "프로바이오틱스", description: "장 건강을 위한 프로바이오틱스", image: "/images/img3.jpg" },
-    { id: 4, name: "프로바이오틱스", description: "장 건강을 위한 프로바이오틱스", image: "/images/img3.jpg" },
+    { id: 1, name: "관절 케어 팩", description: "관절 건강 지키기", image: "/images/blackimg.png" },
+    { id: 2, name: "신장&혈당 밸런스 팩", description: "", image: "/images/yelloimg.png" },
+    { id: 3, name: "간 & 활력 팩", description: "", image: "/images/pinkimg.png" },
+    { id: 4, name: "ONLY 신장 팩", description: "", image: "/images/greenimg.png" },
   ];
 
   const navigate = useNavigate();
-
   // 이미지 배열을 useMemo로 메모이제이션하여 불필요한 리렌더링 방지
-  const images = useMemo(() => ["/images/mainpage.png", "/images/p10.png", "/images/p4.png"], []);
+  const images = useMemo(() => ["images/allpack.png", "/images/main2.png", "/images/img3.png"], []);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -31,7 +31,7 @@ function Home() {
     <div>
       <div className="container-fluid content-wrapper home-content">
         <h1 className="display-4 text-black text-center">
-          <span className="text-danger">사슴</span>벌레
+          <span className="text-danger">지미</span><br></br>씹싸스꺼
         </h1>
 
         {/* 이미지 자동 전환 (부드러운 페이드 인/아웃 효과 추가) */}
@@ -41,12 +41,12 @@ function Home() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            duration: 3.5, // 3.5초 동안 전환
+            duration: 2, // 3.5초 동안 전환
             ease: "easeInOut",
           }}
           style={{
             width: "100%",  // 이미지가 화면 전체에 맞게 크기 설정
-            height: "350px", // 이미지의 고정된 높이 설정 (필요에 따라 조정)
+            height: "600px", // 이미지의 고정된 높이 설정 (필요에 따라 조정)
             overflow: "hidden", // 넘치는 부분은 숨기기
           }}
         >

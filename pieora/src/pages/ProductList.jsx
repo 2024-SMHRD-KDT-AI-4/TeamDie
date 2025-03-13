@@ -14,7 +14,7 @@ function ProductList() {
       <div className="row gy-4">  {/* gy-4로 세로 간격 조정 */}
         {products.map((product) => (
           <div key={product.id} className="col-md-6">
-            <div className="card p-3 shadow-sm mb-4"> {/* mb-4로 카드 간격 추가 */}
+            <div className="card shadow-sm mb-2" style={{ padding:"30rem"}}> {/* mb-4로 카드 간격 추가 */}
               <img src={product.image} alt={product.name} className="img-fluid rounded mx-auto d-block" />
               <h5 className="card-title mt-2 text-center">{product.name}</h5>
               <p className="card-text text-center">{product.description}</p>
