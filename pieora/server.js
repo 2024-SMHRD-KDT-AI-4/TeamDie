@@ -29,6 +29,8 @@ app.use(express.json());
 app.use("/api", authRoutes);
 app.use("/api/cartpage", cartRouter);
 app.use("/api/mypage", userRouter);
+app.use("/api/upload-health-records", userRouter);
+
 
 
 // 서버 시작
