@@ -6,6 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UploadHealthRecords from "./pages/UploadHealthRecords";
+import SurveyPage from "./pages/SurveyPage"; 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -13,7 +14,7 @@ import CartPage from "./pages/CartPage";
 import MyPage from "./pages/MyPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import Final from "./pages/Final";
-import Result from"./pages/Result"
+import Result from "./pages/Result";
 import "./App.css";
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
              <Route path="/mypage" element={<MyPage />} />
              <Route path="/checkout" element={<CheckoutPage />} />
             </Route>
-            
+
+            <Route path="/survey" element={<SurveyPage />} /> 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/final" element={<Final />} />
