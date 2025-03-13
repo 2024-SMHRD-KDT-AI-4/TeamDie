@@ -45,8 +45,10 @@ function Header() {
                 <Link
                   className="nav-link"
                   title="로그아웃"
-                  onClick={() => {
-                    logout();
+                  onClick={async () => {
+                    console.log("로그아웃 버튼 클릭됨");
+                    await logout();
+                    console.log("로그아웃 완료됨");
                     navigate("/");
                   }}
                 >
