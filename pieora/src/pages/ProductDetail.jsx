@@ -5,9 +5,10 @@ function ProductDetail() {
   const navigate = useNavigate();
 
   const productDetails = {
-    1: { name: "비타민C", description: "비타민C는 면역력 증진에 도움을 줍니다.", image: "/images/img1.jpg" },
-    2: { name: "오메가3", description: "오메가3는 혈액순환과 뇌 건강에 좋습니다.", image: "/images/img2.jpg" },
-    3: { name: "프로바이오틱스", description: "프로바이오틱스는 장 건강을 지원합니다.", image: "/images/img3.jpg" },
+    1: { name: "", description: ".", image: "/images/ssh1img.png" },
+    2: { name: "", description: "", image: "/images/ssh2img.png" },
+    3: { name: "프로바이오틱스", description: "프로바이오틱스는 장 건강을 지원합니다.", image: "/images/ssh3img.png" },
+    4: { name: "프로바이오틱스1", description:"",image:"/images/ssh4img.png"},
   };
 
   const product = productDetails[id];
