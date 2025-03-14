@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styles from "./SurveyPage.module.css"; // ✅ CSS 모듈 적용
 
 const SurveyPage = () => {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // ✅ 에러 메시지 상태 추가
+  const [modalMessage, setModalMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      setErrorMessage("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+      setModalMessage("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+      setShowModal(true);
       setTimeout(() => navigate("/login"), 2000);
       return;
     }
@@ -32,7 +35,8 @@ const SurveyPage = () => {
         }
       } catch (error) {
         console.error("❌ 사용자 정보 불러오기 실패:", error);
-        setErrorMessage("사용자 정보를 불러오는 데 실패했습니다. 다시 로그인해주세요.");
+        setModalMessage("사용자 정보를 불러오는 데 실패했습니다. 다시 로그인해주세요.");
+        setShowModal(true);
         localStorage.removeItem("token");
         setTimeout(() => navigate("/login"), 2000);
       }
@@ -54,7 +58,8 @@ const SurveyPage = () => {
         setQuestions([...response.data.common_questions, ...response.data.custom_questions]);
       } catch (error) {
         console.error("❌ 설문 데이터를 불러오는 중 오류 발생:", error);
-        setErrorMessage("설문 데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.");
+        setModalMessage("설문 데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.");
+        setShowModal(true);
       } finally {
         setIsLoading(false);
       }
@@ -78,66 +83,51 @@ const SurveyPage = () => {
       console.log(`✅ 응답 저장: ${answer}`);
     } catch (error) {
       console.error("❌ 답변 저장 오류:", error);
-      setErrorMessage("답변 저장에 실패했습니다. 다시 시도해주세요.");
+      setModalMessage("답변 저장에 실패했습니다. 다시 시도해주세요.");
+      setShowModal(true);
       return;
     }
 
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      alert("설문이 완료되었습니다!");
-      navigate("/mypage");
+      setModalMessage("설문이 완료되었습니다! 결과페이지로 이동합니다.");
+      setShowModal(true);
+      setTimeout(() => navigate("/result"));
     }
   };
 
+  const closeModal = () => setShowModal(false);
+
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       <h2>맞춤형 설문</h2>
-      {errorMessage && <p style={styles.error}>{errorMessage}</p>} {/* ✅ 에러 메시지 표시 */}
       {isLoading ? (
         <p>설문 데이터를 가져오는 중...</p>
       ) : questions.length > 0 ? (
         <>
-          <p style={styles.question}>{questions[currentIndex].survey_content}</p>
-          <div style={styles.buttonContainer}>
-            <button onClick={() => handleAnswer(1)} style={styles.button}>O</button>
-            <button onClick={() => handleAnswer(0)} style={styles.button}>X</button>
+          <p className={styles.question}>{questions[currentIndex].survey_content}</p>
+          <div className={styles.buttonContainer}>
+            <button onClick={() => handleAnswer(1)} className={styles.button}>O</button>
+            <button onClick={() => handleAnswer(0)} className={styles.button}>X</button>
           </div>
         </>
       ) : (
         <p>설문 데이터가 없습니다.</p>
       )}
+
+      {/* 모달 표시 */}
+      {showModal && (
+        <div className={styles.overlay}>
+          <div className={styles.modal}>
+            <h3 className={styles.title}>알림</h3>
+            <p>{modalMessage}</p>
+            <button className={styles.modalButton} onClick={closeModal}>확인</button>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-const styles = {
-  container: {
-    textAlign: "center",
-    padding: "20px",
-  },
-  question: {
-    fontSize: "20px",
-    marginBottom: "20px",
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "center",
-    gap: "20px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "18px",
-    cursor: "pointer",
-    border: "none",
-    borderRadius: "5px",
-    backgroundColor: "#ff6b6b",
-    color: "#fff",
-  },
-  error: {
-    color: "red",
-    marginBottom: "20px",
-  },
 };
 
 export default SurveyPage;

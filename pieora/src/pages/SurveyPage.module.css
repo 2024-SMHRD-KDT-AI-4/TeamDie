@@ -1,0 +1,82 @@
+/* 전체 컨테이너 */
+.container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* 질문 텍스트 */
+  .question {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* 버튼 컨테이너 */
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* 일반 버튼 스타일 (O/X 버튼) */
+  .button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6b6b; /* 빨간색 */
+    color: #fff;
+  }
+  
+  .button:hover {
+    background-color: #e63946;
+  }
+  
+  /* 모달 배경 */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  /* 모달 컨테이너 */
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+    z-index: 1000;
+  }
+  
+  /* 모달 제목 */
+  .title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* 모달 버튼 스타일 */
+  .modalButton {
+    background: black; /* 검은색 */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 80px;
+  }
+  
+  .modalButton:hover {
+    background: #fa2727; /* 어두운 회색 */
+  }
+  
