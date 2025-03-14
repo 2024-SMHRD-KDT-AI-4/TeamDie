@@ -24,23 +24,42 @@ cartRouter.get("/cart", authenticateJWT, async (req, res) => { // ✅ 미들웨�
 
 // ✅ 장바구니에 상품 추가
 cartRouter.post("/cart", authenticateJWT, async (req, res) => {
-    const userId = req.user.id; // ✅ provider_id 대신 user_id 사용
+    console.log("📌 장바구니 추가 요청 데이터:", req.body); // ✅ 추가된 디버깅 로그
+
+    const userId = req.user.id;
     const { product_id, name, description, image, quantity, price } = req.body;
 
     if (!product_id || !name || quantity < 1 || !price) {
+        console.log("❌ 필수 데이터 누락: ", { product_id, name, quantity, price }); // 추가된 디버깅
         return res.status(400).json({ error: "필수 항목을 모두 입력해야 합니다." });
     }
 
     try {
-        const [result] = await db.pool.query(
-            "INSERT INTO cart (user_id, product_id, name, description, image, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            [userId, product_id, name, description, image, quantity, price]
+        const [existing] = await db.pool.query(
+            "SELECT * FROM cart WHERE user_id = ? AND product_id = ?",
+            [userId, product_id]
         );
-        res.json({ message: "상품이 장바구니에 추가되었습니다.", id: result.insertId });
+
+        if (existing.length > 0) {
+            await db.pool.query(
+                "UPDATE cart SET quantity = quantity + ? WHERE user_id = ? AND product_id = ?",
+                [quantity, userId, product_id]
+            );
+            res.json({ message: "상품 수량이 증가되었습니다." });
+        } else {
+            const [result] = await db.pool.query(
+                "INSERT INTO cart (user_id, product_id, name, description, image, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                [userId, product_id, name, description, image, quantity, price]
+            );
+            res.json({ message: "상품이 장바구니에 추가되었습니다.", id: result.insertId });
+        }
     } catch (err) {
+        console.error("📌 장바구니 추가 오류:", err.message);
         res.status(500).json({ error: "데이터베이스 오류: " + err.message });
     }
 });
+
+
 
 // ✅ 장바구니 상품 수량 업데이트
 cartRouter.put("/cart/:id", authenticateJWT, async (req, res) => {
