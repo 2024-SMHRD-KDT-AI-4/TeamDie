@@ -32,6 +32,7 @@ app.use("/api", authRoutes);
 app.use("/api/cartpage", cartRouter);
 app.use("/api/mypage", userRouter);
 app.use("/api/upload-health-records", userRouter);
+app.use("/api/survey", userRouter);
 app.use("/api/products", productRouter);
 
 

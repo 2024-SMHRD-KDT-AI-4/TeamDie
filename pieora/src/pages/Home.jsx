@@ -69,7 +69,7 @@ function Home() {
           <h2 className="mb-4 text-center fw-bold">TOP 4</h2>
           <div className="row">
             {products.map((product) => (
-              <div key={product.product_id} className="col-md-6 col-lg-4 mb-4">
+              <div key={product.product_id} className="col-6 mb-4">
                 <div className="card p-4 shadow-sm custom-card h-100 d-flex flex-column">
                   <img
                     src={product.product_image_path}

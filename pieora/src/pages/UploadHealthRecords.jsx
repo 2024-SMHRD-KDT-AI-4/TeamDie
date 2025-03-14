@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function UploadHealthRecords() {
   const [healthCheckFile, setHealthCheckFile] = useState(null);
   const [medicalRecordFile, setMedicalRecordFile] = useState(null);
   const [userEmail, setUserEmail] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // JWT 가져오기
@@ -61,9 +63,11 @@ function UploadHealthRecords() {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert(response.data.message);
+      navigate("/survey");
     } catch (error) {
       console.error("파일 업로드 실패:", error);
       alert("파일 업로드에 실패했습니다.");
+      
     }
   };
 
