@@ -1,45 +1,65 @@
-import React, { useEffect } from "react";
-import "./Signup.css"; // 스타일 파일 경로 조정 필요 (예: ../Signup.css)
+import React, { useEffect, useState } from "react";
+import "./Signup.css";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // 리다이렉트용
+import { useNavigate } from "react-router-dom";
 
-// 카카오 SDK 초기화 함수
+// 모달 컴포넌트
+const Modal = ({ message, onClose }) => {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-container">
+        <div className="modal-header">
+          <h3>알림</h3>
+        </div>
+        <div className="modal-body">
+          <p>{message}</p>
+        </div>
+        <div className="modal-footer">
+          <button onClick={onClose} className="modal-button">확인</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const initKakao = () => {
   if (window.Kakao && !window.Kakao.isInitialized()) {
-    window.Kakao.init("afc1d1b96cf546359fe487cb5406089a"); // 본인의 카카오 JavaScript 키로 교체
-    console.log("카카오 SDK 초기화 완료:", window.Kakao.isInitialized());
+    window.Kakao.init(`${process.env.REACT_APP_KAKAO_CLIENT_ID}`);
   }
 };
 
-// 백엔드에 회원가입 데이터 전송 함수
-const signupToBackend = async (userInfo, navigate) => {
+const signupToBackend = async (userInfo, navigate, setModalMessage, setShowModal) => {
   try {
     const url = `${process.env.REACT_APP_API_URL}/api/signup`;
-    console.log("Request URL:", url);
     if (!process.env.REACT_APP_API_URL) {
       throw new Error("REACT_APP_API_URL is not defined in .env");
     }
     const response = await axios.post(url, userInfo, {
       headers: { "Content-Type": "application/json" },
     });
-    console.log("백엔드 응답:", response.data);
 
-    // 회원가입 성공 시 홈화면으로 이동
     if (response.data.message === "회원가입 성공") {
-      alert(response.data.alert); // ✅ 회원가입 성공 메시지 표시
-      navigate("/"); // /home으로 리다이렉트
+      setModalMessage(response.data.alert);
+      setShowModal(true);
     }
   } catch (error) {
     console.error("백엔드 회원가입 실패:", error.message, error.response?.data);
-    alert("회원가입 실패: " + (error.response?.data?.error || error.message));
+    setModalMessage("회원가입 실패: " + (error.response?.data?.error || error.message));
+    setShowModal(true);
   }
 };
 
 function SignupContent() {
-  const navigate = useNavigate(); // 리다이렉트용 hook
+  const navigate = useNavigate();
+  const [modalMessage, setModalMessage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  // 구글 로그인 설정
+  const closeModal = () => {
+    setShowModal(false);
+    navigate("/");
+  };
+
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const accessToken = tokenResponse.access_token;
@@ -47,8 +67,6 @@ function SignupContent() {
         const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
-        console.log("구글 사용자 정보:", res.data);
-
         const userInfo = {
           provider: "google",
           provider_id: res.data.sub,
@@ -56,36 +74,31 @@ function SignupContent() {
           nickname: res.data.name || null,
           profile_image: res.data.picture || null,
         };
-        console.log("구글 정리된 사용자 정보:", userInfo);
-        await signupToBackend(userInfo, navigate); // navigate 전달
+        await signupToBackend(userInfo, navigate, setModalMessage, setShowModal);
       } catch (error) {
         console.error("구글 사용자 정보 가져오기 실패:", error);
-        alert("구글 로그인 처리 중 오류가 발생했습니다.");
+        setModalMessage("구글 로그인 처리 중 오류가 발생했습니다.");
+        setShowModal(true);
       }
     },
     onError: () => {
-      console.error("구글 로그인 실패");
-      alert("구글 로그인에 실패했습니다.");
+      setModalMessage("구글 로그인에 실패했습니다.");
+      setShowModal(true);
     },
-    flow: "implicit",
   });
 
-  // 카카오 SDK 초기화
   useEffect(() => {
     initKakao();
   }, []);
 
-  // 카카오 로그인 함수
   const kakaoLogin = () => {
     if (!window.Kakao || !window.Kakao.isInitialized()) {
-      console.error("카카오 SDK가 초기화되지 않았습니다.");
-      alert("카카오 SDK 초기화에 실패했습니다.");
+      setModalMessage("카카오 SDK 초기화에 실패했습니다.");
+      setShowModal(true);
       return;
     }
-
     window.Kakao.Auth.login({
       success: async (authObj) => {
-        console.log("카카오 로그인 성공:", authObj);
         try {
           const response = await new Promise((resolve, reject) => {
             window.Kakao.API.request({
@@ -94,8 +107,6 @@ function SignupContent() {
               fail: reject,
             });
           });
-
-          console.log("카카오 사용자 정보:", response);
           const userInfo = {
             provider: "kakao",
             provider_id: String(response.id),
@@ -103,16 +114,15 @@ function SignupContent() {
             nickname: response.properties?.nickname || null,
             profile_image: response.properties?.profile_image || null,
           };
-          console.log("카카오 정리된 사용자 정보:", userInfo);
-          await signupToBackend(userInfo, navigate); // navigate 전달
+          await signupToBackend(userInfo, navigate, setModalMessage, setShowModal);
         } catch (error) {
-          console.error("카카오 사용자 정보 가져오기 실패:", error);
-          alert("카카오 로그인 처리 중 오류가 발생했습니다.");
+          setModalMessage("카카오 로그인 처리 중 오류가 발생했습니다.");
+          setShowModal(true);
         }
       },
-      fail: (error) => {
-        console.error("카카오 로그인 실패:", error);
-        alert("카카오 로그인에 실패했습니다.");
+      fail: () => {
+        setModalMessage("카카오 로그인에 실패했습니다.");
+        setShowModal(true);
       },
     });
   };
@@ -132,6 +142,7 @@ function SignupContent() {
           카카오로 시작하기
         </button>
       </div>
+      {showModal && <Modal message={modalMessage} onClose={closeModal} />}
     </div>
   );
 }

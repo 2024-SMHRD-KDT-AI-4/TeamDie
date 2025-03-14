@@ -28,14 +28,10 @@ app.use(express.json());
 
 // ✅ 라우터 등록 (순서 및 경로 정리)
 app.use("/api", authRoutes);
-app.use("/api/mypage", userRouter);
-app.use("/api/survey", userRouter);
-app.use("/api/products", productRouter);
 app.use("/api/cartpage", cartRouter); // ✅ 장바구니 관련 API
 app.use("/api/mypage", userRouter); // ✅ 유저 관련 APIs
 app.use("/api/products", productRouter); // ✅ 제품 관련 API
 app.use("/api/upload-health-records", userRouter); // ✅ 건강기록 업로드
-
 
 
 app.use((req, res, next) => {

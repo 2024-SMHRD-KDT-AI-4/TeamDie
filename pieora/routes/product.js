@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
   
   try {
     const [rows] = await pool.query(
-      "SELECT product_id, product_name, product_description, product_price, product_image_path FROM product WHERE product_id = ?",
+      "SELECT product_id, product_name, product_description, product_price, product_image_path, product_detail FROM product WHERE product_id = ?",
       [id]
     );
 

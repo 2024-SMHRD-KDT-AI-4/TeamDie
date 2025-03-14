@@ -148,7 +148,7 @@ function ProductDetail() {
               장바구니
             </button>
             <button
-              onClick={handlePurchase}
+              onClick={() => navigate(`/checkout?product_id=${product.product_id}&quantity=${quantity}`)}
               className="btn btn-secondary d-flex align-items-center justify-content-center"
               style={{ flex: 1, height: "45px", fontSize: "1rem" }}
             >
@@ -158,8 +158,17 @@ function ProductDetail() {
         </div>
       </div>
 
+      <div className="text-center mt-4">
+        <img
+          src={product.product_detail}
+          alt={`${product.product_name} 추가 이미지`}
+          className="img-fluid rounded"
+          style={{ maxWidth: "300px" }}
+        />
+      </div>
+
       {/* 장바구니 모달 */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>장바구니 추가</Modal.Title>
         </Modal.Header>

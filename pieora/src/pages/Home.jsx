@@ -38,7 +38,7 @@ function Home() {
     <div>
       <div className="container-fluid content-wrapper home-content">
         <h1 className="display-4 text-black text-center">
-          <span className="text-danger">지미</span><br></br>씹싸스꺼
+          <span className="text-danger">피어나</span><br></br>건강분석
         </h1>
 
         {/* 이미지 슬라이드 */}
@@ -58,7 +58,7 @@ function Home() {
           />
         </motion.div>
 
-        <h1 className="lead text-center fw-bold">건강검진 분석</h1>
+        <h1 className="lead text-center fw-bold">   </h1>
         <button className="btn btn-primary d-block mx-auto" onClick={() => navigate("/upload-health-records")}>
           시작하기
         </button>
