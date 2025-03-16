@@ -405,7 +405,7 @@ function CheckoutPage() {
 
   return (
     <div className="container my-5">
-      <h2 className="text-center mb-4">결제 페이지</h2>
+      <h2 className="text-center mb-4">주문 / 결제</h2>
 
       {cart.length === 0 ? (
         <div className="text-center">

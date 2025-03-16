@@ -86,10 +86,10 @@ function ProductDetail() {
 
   return (
     <div className="container mt-4">
-      <h2 className="fw-bold text-center mt-3" style={{ fontSize: "1.5rem" }}>
+      <h2 className="fw-bold text-center mt-3" style={{ fontSize: "1.5rem",  marginBottom: "25px"  }}>
         {product.product_name}
       </h2>
-
+     
       {/* 이미지 & 설명 */}
       <div className="d-flex justify-content-center align-items-center mb-4">
         <img

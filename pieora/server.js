@@ -30,6 +30,7 @@ app.use(express.json());
 app.use("/api", authRoutes);
 app.use("/api/cartpage", cartRouter); // ✅ 장바구니 관련 API
 app.use("/api/mypage", userRouter); // ✅ 유저 관련 APIs
+app.use("/api/result", userRouter); // ✅ 유저 관련 APIs
 app.use("/api/products", productRouter); // ✅ 제품 관련 API
 app.use("/api/upload-health-records", userRouter); // ✅ 건강기록 업로드
 

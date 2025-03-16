@@ -8,7 +8,6 @@ const SurveyPage = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,16 +73,12 @@ const SurveyPage = () => {
     }
 
     try {
-      await axios.post(
-        `${process.env.REACT_APP_FLASK_API_URL}/save_answer`,
-        {
-          survey_idx: question.survey_idx,
-          answer_content: answerValue,
-        },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
+      await axios.post(`${process.env.REACT_APP_FLASK_API_URL}/save_answer`, {
+        survey_idx: question.survey_idx,
+        answer_content: answerValue,
+      }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       console.log(`✅ 응답 저장: ${answerValue}`);
     } catch (error) {
       console.error("❌ 답변 저장 오류:", error);
@@ -100,38 +95,27 @@ const SurveyPage = () => {
 
   const handleSurveyCompletion = async () => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_FLASK_API_URL}/recommend_supplements`,
-        {},
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-      );
-      console.log("✅ 추천 알고리즘 실행 완료:", response.data);
-      
-      // 기존 alert 대신 모달 표시
-      setIsModalOpen(true);
+        const response = await axios.post(
+            `${process.env.REACT_APP_FLASK_API_URL}/recommend_supplements`, 
+            {}, 
+            { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        );
+        console.log("✅ 추천 알고리즘 실행 완료:", response.data);
+        alert("설문이 완료되었습니다!");
+        setTimeout(() => navigate("/mypage"), 1000);
     } catch (error) {
-      console.error("❌ 추천 알고리즘 실행 오류:", error);
-      if (error.response) {
-        console.error("🚨 서버 응답 데이터:", error.response.data);
-      }
-      setErrorMessage("추천 데이터를 생성하는 중 오류가 발생했습니다.");
+        console.error("❌ 추천 알고리즘 실행 오류:", error);
+        if (error.response) {
+            console.error("🚨 서버 응답 데이터:", error.response.data);
+        }
+        setErrorMessage("추천 데이터를 생성하는 중 오류가 발생했습니다.");
     }
-  };
-
-  // 모달 '확인' 버튼 클릭 시 처리
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    navigate("/result");
-  };
+};
 
   return (
     <div style={styles.container}>
       <h2>맞춤형 설문</h2>
-      
-      {/* 에러 메시지 표시 */}
       {errorMessage && <p style={styles.error}>{errorMessage}</p>}
-
-      {/* 설문 데이터 로딩 상태 */}
       {isLoading ? (
         <p>설문 데이터를 가져오는 중...</p>
       ) : questions.length > 0 ? (
@@ -153,31 +137,14 @@ const SurveyPage = () => {
               </select>
             ) : (
               <>
-                <button onClick={() => handleAnswer(1)} style={styles.button}>
-                  O
-                </button>
-                <button onClick={() => handleAnswer(0)} style={styles.button}>
-                  X
-                </button>
+                <button onClick={() => handleAnswer(1)} style={styles.button}>O</button>
+                <button onClick={() => handleAnswer(0)} style={styles.button}>X</button>
               </>
             )}
           </div>
         </>
       ) : (
         <p>설문 데이터가 없습니다.</p>
-      )}
-
-      {/* 설문 완료 모달 */}
-      {isModalOpen && (
-        <div style={styles.modalOverlay}>
-          <div style={styles.modalContent}>
-            <h3 style={styles.modalTitle}>알림</h3>
-            <p>설문이 완료되었습니다!</p>
-            <button style={styles.modalButton} onClick={handleCloseModal}>
-              확인
-            </button>
-          </div>
-        </div>
       )}
     </div>
   );
@@ -209,43 +176,6 @@ const styles = {
   error: {
     color: "red",
     marginBottom: "20px",
-  },
-  // 모달 오버레이 스타일
-  modalOverlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 9999,
-  },
-  // 모달 컨텐츠 스타일
-  modalContent: {
-    backgroundColor: "#fff",
-    borderRadius: "8px",
-    padding: "20px 30px",
-    textAlign: "center",
-    minWidth: "280px",
-  },
-  // 모달 제목
-  modalTitle: {
-    margin: 0,
-    marginBottom: "10px",
-    fontSize: "18px",
-  },
-  // 모달 버튼
-  modalButton: {
-    marginTop: "20px",
-    backgroundColor: "#000",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    padding: "10px 20px",
-    cursor: "pointer",
   },
 };
 

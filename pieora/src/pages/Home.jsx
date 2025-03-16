@@ -38,7 +38,7 @@ function Home() {
     <div>
       <div className="container-fluid content-wrapper home-content">
         <h1 className="display-4 text-black text-center">
-          <span className="text-danger">피어나</span><br></br>건강분석
+          {/* <span className="text-danger">피어나</span><br></br> */}
         </h1>
 
         {/* 이미지 슬라이드 */}
@@ -60,7 +60,7 @@ function Home() {
 
         <h1 className="lead text-center fw-bold">   </h1>
         <button className="btn btn-primary d-block mx-auto" onClick={() => navigate("/upload-health-records")}>
-          시작하기
+          건강기능식품 추천 받기
         </button>
       </div>
 

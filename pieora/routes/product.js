@@ -5,7 +5,7 @@ const { pool } = require("../config/db"); // ✅ pool 가져오기
 // 상품 목록 가져오기 API
 router.get("/", async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM product ORDER BY product_id DESC LIMIT 4");
+    const [rows] = await pool.query("SELECT * FROM product ORDER BY product_id ASC LIMIT 4");
     res.json(rows); // JSON 형태로 응답
   } catch (err) {
     console.error("❌ 상품 데이터 조회 오류:", err);

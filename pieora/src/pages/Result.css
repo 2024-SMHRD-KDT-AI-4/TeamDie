@@ -1,24 +1,86 @@
-/* Result 페이지 전체 스타일 */
+/* 전체 페이지 스타일 */
 .result-page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding-bottom: 50px;
-  }
-  
-  /* 카드 스타일 (가로 배치) */
-  .result-card {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  /* 이미지 크기 조절 */
-  .result-img {
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-  }
-  
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+/* 제목 스타일 */
+.result-page h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 설명 스타일 */
+.result-page p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* 카드 스타일 (가로 배치) */
+.result-card {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* 이미지 스타일 */
+.result-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+/* 제품 정보 컨테이너 (수직 정렬) */
+.result-info {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  justify-content: space-between; /* 버튼을 아래로 밀어줌 */
+}
+
+/* 제품 제목 스타일 */
+.result-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 제품 설명 스타일 */
+.result-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+/* 상세보기 버튼 */
+.result-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: auto; /* 버튼을 아래로 정렬 */
+}
+
+.result-btn:hover {
+  background-color: #333;
+}
+
+

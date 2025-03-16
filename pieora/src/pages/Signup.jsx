@@ -57,7 +57,7 @@ function SignupContent() {
 
   const closeModal = () => {
     setShowModal(false);
-    navigate("/");
+    navigate("/login");
   };
 
   const googleLogin = useGoogleLogin({

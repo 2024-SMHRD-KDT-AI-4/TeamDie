@@ -34,8 +34,8 @@ const MyPage = () => {
       <div className="card mx-auto" style={{ maxWidth: "400px" }}>
         <div className="card-body">
           <h2 className="card-title">회원 정보</h2>
-          <p className="card-text"><strong>이메일:</strong> {user.email}</p>
-          <p className="card-text"><strong>닉네임:</strong> {user.nickname}</p>
+          <p className="card-text"><strong>이메일 :</strong> {user.email}</p>
+          <p className="card-text"><strong>이름 :</strong> {user.nickname}</p>
           <Link to={"/result"} className="btn btn-primary w-100 mt-3">
                   건강 분석 보기
           </Link>
@@ -46,3 +46,5 @@ const MyPage = () => {
 };
 
 export default MyPage;
+
+
